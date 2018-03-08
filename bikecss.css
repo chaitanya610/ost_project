@@ -1,0 +1,140 @@
+.bikebgimage{
+	background-image:url("img/bikebg.jpg");
+	background-position: center;
+    background-repeat: repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+.myfont{
+	font-size:20px;
+	color:white;
+	font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+}
+.user{
+    color: white;
+    text-align: center;
+    padding: 8px 22px;
+    text-decoration: none;
+	font-size:16px;
+	font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+	width:auto; 
+	float:right; 
+	cursor:pointer;
+	position: relative;
+    display: inline-block;
+}
+#date{
+	height:170px;
+	width:100%;
+	padding:40px 40px;
+	position:relative;
+	z-index:0;
+}
+#from-date{
+	position:absolute;
+	top:50;
+	float:left;
+}
+#to-date{
+	position:absolute;
+	top:50;
+	float:left;
+	margin-left:450px;
+}
+#pickuptime{
+	position:absolute;
+	top:50;
+	float:left;
+	right:120;
+}
+#economy{
+	width:100%;
+	height:auto; 
+	overflow:auto;
+	padding:40px 40px;
+}
+#premium{
+	width:100%;
+	height:auto; 
+	overflow:auto;
+	padding:40px 40px;
+}
+#element{
+	width:300px;
+	height:400px;
+	background-color:#f4f6f8;
+	float:left;
+	margin: 28px 64px;
+	box-shadow: -4px 5px 5 rgba(0, 0, 0, 0.4);
+}
+#element:hover{
+	box-shadow: -6px 8px 5 rgba(0,0,0,0.4);
+}
+.bike-img{
+	margin-left: 12px;
+	margin-right: 12px;
+	margin-top:16px;
+	display: block;
+	filter: contrast(85%);
+	width: 276px;
+	height: 224px;
+}
+.bike-desc{
+	margin-left: 12px;
+	margin-right: 12px;
+	margin-top:12px;
+	display:block;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	font-size:20px;
+	text-align:center;
+}
+.availability{
+	width:300px;
+	height:36px;
+}
+.available{
+	background-color:green;
+	cursor:pointer;
+}
+.notavailable{
+	background-color:red;
+}
+.avail{
+	background-color:#a9afb6;
+}
+#price p{
+	 display: inline-block;
+     vertical-align: top;
+	 text-align:center;
+}
+
+span.stars, span.stars span {
+    display: block;
+    background: url(img/stars.png) 0 -16px repeat-x;
+    width: 80px;
+    height: 16px;
+	float:right;
+	margin-top:16px;
+}
+
+span.stars span {
+    background-position: 0 0;
+}
+.availability-check{
+	background-color:#000;
+	color:white;
+	margin-left:12px;
+	margin-right:12px;
+	text-align:center;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	font-size:20px;
+}
+#element:hover .bike-img{
+	filter: contrast(100%);
+}
+#navbar ul li:last-child
+{
+    float:right;
+}

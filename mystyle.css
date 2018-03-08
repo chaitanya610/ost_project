@@ -1,0 +1,288 @@
+body{
+	height:100%;
+	width:100%;
+	overflow-x: hidden;
+	margin: 0;
+    padding: 0;
+
+}
+#container{
+	position:relative;
+	height:100%;
+}
+.bgimage{
+	background-image: url("img/home.jpg");
+	background-position: center;
+	background-repeat: repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+#header{
+	width:100%;
+	height:180px;
+}
+#navbar{
+	width:100%;
+	height:45px;
+}
+.sticky{
+    top:0;
+    z-index: 100;
+	position: fixed;
+}
+#homebody{
+	position:relative;
+	height:100%;
+	width:100%;
+}
+#home{
+	height:500px;
+	width:100%;	
+	overflow:hidden;
+}
+#navigation-icons{
+	position:absolute;
+	top:250;
+	left:450;
+	width:400px;
+	height:200px;
+	float:bottom;
+}
+#car-button{
+	border-radius:50%;
+	padding: 20px;
+	background-color:#f0f3f4;
+	float:right;
+	cursor: pointer;
+}
+#bike-button{
+	border-radius:50%;
+	padding: 20px;
+	background-color:#f0f3f4;
+	float:left;
+	cursor: pointer;
+}
+#car-button:hover,#bike-button:hover{
+	background-color:#f7e902;
+}
+#about{
+	width:100%;
+	height:400px;
+	padding:40px 40px;
+	background:#f0f3f4;
+}
+#location{
+	height:500px;
+	width:100%;
+	padding:40px 40px;
+	background:#f0f3f4;
+}
+#map{
+    width: 1300px;
+    height: 450px;
+    background-color: grey;
+}
+#contact{
+	position:relative;
+	height:300px;
+	width:100%;
+	padding:40px 40px;
+	background:#f0f3f4;
+}
+#contact-details{
+	position:absolute;
+	height:210px;
+	width:400px;
+	float:right;
+	left:400;
+	top:125;
+}
+#gap{
+	width:100%;
+	height:200px;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: rgba(0,0,0,0.5);
+	height:38px;
+}
+#navbar li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 8px 22px;
+    text-decoration: none;
+	font-size:16px;
+	font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+	float:left;
+}
+h1{
+		font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+		font-weight: normal;
+}
+#navbar li a:hover{
+	color: #f7e902;
+}
+.user{
+    color: white;
+    text-align: center;
+    padding: 8px 22px;
+    text-decoration: none;
+	font-size:16px;
+	font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+	width:auto; 
+	float:right; 
+	cursor:pointer;
+    display: inline-block;
+}
+.userimage{
+	height:30px;
+	width:30px;
+	float:left;
+}
+.user li{
+	height:30px;
+}
+.dropdown-content a:hover {background-color: #ddd}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.user:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+.dropdown-content {
+    display: none;
+    position: fixed;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+	right:0;
+}
+
+/*login form*/
+
+.mybutton {
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+	border-radius:5px;
+}
+
+.mybutton:hover {
+    opacity: 0.8;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+.formcontainer {
+    padding-left: 32px;
+	padding-right:32px;
+}
+.extrabutton{
+	padding:32px;
+}
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 100px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 2% auto 13% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+#login{
+	height:auto;
+}
+.animate {
+    animation: new-item-animation .3s linear forwards;
+}
+
+@keyframes new-item-animation {
+    from {
+        opacity: 0;
+        transform: translateY(-600px);
+    }
+    
+    to {
+        opacity: 1;
+        transform : translateY(-100px);
+    }
+}
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+}
+
+input[type=text], input[type=password]{
+	width: 280px;
+    padding: 10px 2px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+	font-size:20px;
+}
+.myfont{
+	font-size:20px;
+	color:white;
+	font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+}
