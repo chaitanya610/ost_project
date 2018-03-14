@@ -11,9 +11,8 @@
 		$sql= "SELECT * FROM customers WHERE email='$email' AND password='$password'";
 		$result=mysqli_query($link,$sql);
 		$count=mysqli_num_rows($result);
-		$row = mysqli_fetch_array($result);
-		echo $count;
-		if($count == 1){
+		if($count >= 1){
+			$row = mysqli_fetch_array($result);
 			session_start();
 			$_SESSION['loggedin'] = true;
 			$_SESSION['email']=$email;
@@ -36,11 +35,14 @@
 		$sql="INSERT INTO customers(email,username,password)
         VALUES('$email','$username','$password')";
 		if(mysqli_query($link, $sql)){
-			$_SESSION['loggedin'] = true;
+		  $sql="INSERT INTO profiles values('$email', 'img/user.png', 'img/defimg.png', 'img/defimg.png')";
+		  if(mysqli_query($link, $sql)){
+			$_SESSION['loggedin']=true;
 			$_SESSION['username']=$username;
 			$_SESSION['email']=$email;
 			header("Location:home.php");
 			exit();
+		  }
 		}
 		else{
 			echo "<script type='text/javascript'>alert('Username already exists')</script>";
@@ -96,12 +98,20 @@ $(document).ready(function() {
   <li><a href="#contact">Contact Us</a></li>
   <?php
   session_start();
+  $link = mysqli_connect("localhost", "root", "root", "rental");
+ 
+	if($link == false){ 
+		die("ERROR: Could not connect. " . mysqli_connect_error());
+	}
   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
+	$sql= "SELECT profilepic FROM profiles WHERE email='".$_SESSION['email']."'";
+	$result = mysqli_query($link,$sql);
+	$profilepic = mysqli_fetch_array($result);
   ?>
   <div class="user">
-  <li><img src="img/user.png" class="userimage">&nbsp;<?php echo $_SESSION['username']?>&nbsp;<i class="fa fa-caret-down"></i></li>
+  <li><img src=<?php echo $profilepic[0] ?> class="userimage">&nbsp;<?php echo $_SESSION['username']?>&nbsp;<i class="fa fa-caret-down"></i></li>
   <div class="dropdown-content">
-    <a href="#">My Profile</a>
+    <a href="profile.php">My Profile</a>
     <a href="#">My Bookings</a>
     <a href="logout.php">Logout</a>
   </div>
