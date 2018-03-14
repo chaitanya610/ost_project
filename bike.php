@@ -1,8 +1,23 @@
 <?php
+	session_start();
 	$link = mysqli_connect("localhost", "root", "root", "rental");
  
 	if($link == false){ 
 		die("ERROR: Could not connect. " . mysqli_connect_error());
+	}
+	if(isset($_GET['availability']))
+	{
+	$bikes = array();
+		$from = $_GET['from'];
+		$pickup = $_GET['pickup'];
+		if($result = mysqli_query($link,"select bikename from bikebookings where date = date('Y-m-d', strtotime($from))"))
+		{
+		 $index = 0;
+		 while($row = mysqli_fetch_array($result)){
+			$bikes[$index] = $row;
+			$index++;
+		 }
+		}
 	}
 	if(isset($_POST['login']))
 	{
@@ -11,10 +26,8 @@
 		$sql= "SELECT * FROM customers WHERE email='$email' AND password='$password'";
 		$result=mysqli_query($link,$sql);
 		$count=mysqli_num_rows($result);
-		$row = mysqli_fetch_array($result);
-		echo $count;
 		if($count == 1){
-			session_start();
+			$row = mysqli_fetch_array($result);
 			$_SESSION['loggedin'] = true;
 			$_SESSION['email']=$email;
 			$_SESSION['username']=$row['username'];
@@ -29,7 +42,6 @@
 	{
 	if(isset($_POST['signup']) && ($_POST["password"] ===  $_POST["re-password"]))
 	{
-		session_start();
 		$username=($_POST['username']);
 		$password=md5($_POST['password']);
 		$email=($_POST['mail']);
@@ -98,13 +110,15 @@ $(document).ready(function() {
   <li><a href="#economy">Economy</a></li>
   <li><a href="#premium">Premium</a></li>
   <?php
-  session_start();
   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
+	  $sql= "SELECT profilepic FROM profiles WHERE email='".$_SESSION['email']."'";
+	$result = mysqli_query($link,$sql);
+	$profilepic = mysqli_fetch_array($result);
   ?>
   <div class="user">
-  <li><img src="img/user.png" class="userimage">&nbsp;<?php echo $_SESSION['username']?>&nbsp;<i class="fa fa-caret-down"></i></li>
+  <li><img src=<?php echo $profilepic[0] ?> class="userimage">&nbsp;<?php echo $_SESSION['username']?>&nbsp;<i class="fa fa-caret-down"></i></li>
   <div class="dropdown-content">
-    <a href="#">My Profile</a>
+    <a href="profile.php">My Profile</a>
     <a href="#">My Bookings</a>
     <a href="logout.php">Logout</a>
   </div>
@@ -153,17 +167,33 @@ $(document).ready(function() {
    });
   } );
   </script>
+ <form method="get" action="bike.php">
  <div id="date" class="bikebgimage">
  <div id = "from-date">
-  <p class="myfont">From:&nbsp;<input type="text" id="from" class="datepicker"></p>
+  <p class="myfont">From:&nbsp;<input type="text" id="from" name="from" class="datepicker"></p>
   </div>
   <div id = "to-date">
-  <p class="myfont">To:&nbsp;<input type="text" id="to" class="datepicker"></p>
+  <p class="myfont">To:&nbsp;<input type="text" id="to" name="to" class="datepicker"></p>
   </div>
   <div id = "pickuptime">
-  <p class="myfont">PickUp Time:&nbsp;<input type="text" id="time" class="timepicker"></p>
+  <p class="myfont">PickUp Time:&nbsp;<input type="text" name="pickup" id="time" class="timepicker"></p>
   </div>
+  <button type="submit" name="availability" class="myfont mybutton" style="position:absolute; background-color:#203264; width:auto; bottom:10; right:50%;">Book Now</button>
  </div>
+ </form>
+<script>
+ $('.available').click(function(event) {
+    document.cookie = "bike = " + $(this).attr('id');
+	<?php
+		$_SESSION['from']=$_GET['from'];
+		$_SESSION['to']=$_GET['to'];
+		$_SESSION['pickup']=$_GET['pickup'];
+		$_SESSION['bike']=$_COOKIE['bike'];
+		//header("Location:bikebooking.php");
+		//exit();
+	?>
+ });
+</script>
  <div id="economy">
  <h1>Economy Bikes</h1>
  <br>
@@ -173,21 +203,25 @@ $(document).ready(function() {
 		if($link == false){ 
 			die("ERROR: Could not connect. " . mysqli_connect_error());
 			}
-		$result = mysqli_query($link,"select * from bikes where type = 0 order by price;"); ?>
-		<?php
+		$result = mysqli_query($link,"select * from bikes where type = 0 order by price;"); 
 		while($row = mysqli_fetch_array($result)){
         ?>
 		<script>
 		$('#economy').append('<div id="element">'+
 								'<img src=<?php echo $row['photo'] ?> class="bike-img">'+
 								'<p class="bike-desc" style="font-size:18px;"><?php echo $row['name'] ?></p>'+
-								'<div id= <?php echo $row['name']?> class="availability"></div>'+
+								'<?php if(empty($_GET['from']) ||empty($_GET['to']) || empty($_GET['pickup'])){?>'+
+								'<div id= <?php echo $row['name']?> class="availability avail"><p class="bike-desc">Choose Date</p></div>'+
+								'<?php } else if(in_array($row['name'], $bikes)) { ?>'+
+								'<div id= <?php echo $row['name']?> class="availability notavailable"><p class="bike-desc">Already Booked</p></div>'+
+								'<?php } else {?>'+
+								'<div id= <?php echo $row['name']?> class="availability available"><p class="bike-desc">Book Now</p></div>'+
+								'<?php } ?>'+
 								'<div id="price">'+
 									'<p class="bike-desc"><?php echo $row['price']?>/-</p>'+
 									'<p class="bike-desc" style="color:#a9afb6;">per day</p>'+
 								'</div>'+
 								'</div>');
-		$('.availability').addClass('.available');
 		</script>
 		<?php
 		}
