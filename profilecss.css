@@ -1,0 +1,68 @@
+.profilebgimage{
+	background-image: url("img/home.jpg");
+	background-position: center;
+	background-repeat: repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+.backbutton{
+	background-color:#f15a19;
+	color:white;
+	padding:10px 24px;
+	border-radius:8px;
+}
+.backbutton:hover{
+	background-color:#f04f0a;
+	box-shadow: 4px 4px 5 rgba(0,0,0,0.4);
+	cursor:pointer;
+}
+.myfont{
+	font-size:16px;
+	color:white;
+	font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+}
+#profilebody{
+	padding-top:12px;
+	padding-left:16px;
+}
+#form{
+	width:600px;
+	height:auto;
+	background-color:#c9d2d3;
+	float:left;
+	margin: 28px 32px;
+	box-shadow: -4px 5px 5 rgba(0, 0, 0, 0.4);
+	padding-left:16px;
+}
+#profilepic{
+	height:240px;
+	width:240px;
+	background-color:white;
+	cursor:pointer;
+}
+#license{
+	height:240px;
+	width:360px;
+	background-color:white;
+	cursor:pointer;
+}
+#aadhar{
+	position:relative;
+	height:240px;
+	width:360px;
+	background-color:white;
+	cursor:pointer;
+}
+.def{
+	margin-left:50px;
+}
+.uploadimage{
+	margin-left:36px;
+	font-size:22px;
+	border-radius:6px;
+}
+input[type=file]{
+	width:97%;
+	height:32px;
+	border-radius:4px;
+}
