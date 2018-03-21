@@ -1,4 +1,6 @@
 <?php
+	session_start();
+	$_SESSION['logout']=1;
 	$link = mysqli_connect("localhost", "root", "root", "rental");
  
 	if($link == false){ 
@@ -97,12 +99,6 @@ $(document).ready(function() {
   <li><a href="#location">Location</a></li>
   <li><a href="#contact">Contact Us</a></li>
   <?php
-  session_start();
-  $link = mysqli_connect("localhost", "root", "root", "rental");
- 
-	if($link == false){ 
-		die("ERROR: Could not connect. " . mysqli_connect_error());
-	}
   if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
 	$sql= "SELECT profilepic FROM profiles WHERE email='".$_SESSION['email']."'";
 	$result = mysqli_query($link,$sql);

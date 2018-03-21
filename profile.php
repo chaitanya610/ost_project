@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['logout']=0;
 $link = mysqli_connect("localhost", "root", "root", "rental");
  
 	if($link == false){ 
@@ -7,46 +8,22 @@ $link = mysqli_connect("localhost", "root", "root", "rental");
 	}
 if(isset($_POST['upload']))
 {
-	function uploadImage($imageupload){
-    $target_dir = "uploads/";
-	$target_file = $target_dir . basename($_FILES[$imageupload]["name"]);
-	$uploadOk = 1;
-	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-// Check if image file is a actual image or fake image
-    $check = getimagesize($_FILES[$imageupload]["tmp_name"]);
-    if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
-    }
-
-// Allow certain file formats
-	if($imageFileType != "jpg" && $imageFileType != "jpeg") {
-			echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-    $uploadOk = 0;
-	}
-// Check if $uploadOk is set to 0 by an error
-	if ($uploadOk == 0) {
-		echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-	} else {
-		if (move_uploaded_file($_FILES[$imageupload]["tmp_name"], $target_file)) {
-			echo "The file ". basename( $_FILES[$imageupload]["name"]). " has been uploaded.";
-		} else {
-			echo "Sorry, there was an error uploading your file.";
+	    include "imagevalidation.php";
+		if($_FILES["propic"]["error"] != 4) {
+			$propic = uploadImage("propic", "uploads/");
+			$sql= "UPDATE profiles SET profilepic='$propic' WHERE email='".$_SESSION['email']."'";
+			$result=mysqli_query($link,$sql);
 		}
-	}
-	}
-		uploadImage("propic");
-		$propic="uploads/". basename( $_FILES["propic"]["name"]);
-		uploadImage("lipic");
-		$lipic="uploads/". basename( $_FILES["lipic"]["name"]);
-		uploadImage("aapic");
-		$aapic="uploads/". basename( $_FILES["aapic"]["name"]);
-		$sql= "UPDATE profiles SET profilepic='$propic', license='$lipic', aadhar='$aapic' WHERE email='".$_SESSION['email']."'";
-		$result=mysqli_query($link,$sql);
+		if($_FILES["lipic"]["error"] != 4) {
+			$lipic = uploadImage("lipic", "uploads/");
+			$sql= "UPDATE profiles SET license='$lipic' WHERE email='".$_SESSION['email']."'";
+			$result=mysqli_query($link,$sql);
+		}
+		if($_FILES["aapic"]["error"] != 4) {
+			$aapic = uploadImage("aapic", "uploads/");
+			$sql= "UPDATE profiles SET aadhar='$aapic' WHERE email='".$_SESSION['email']."'";
+			$result=mysqli_query($link,$sql);
+		}
 }	
 ?>
 <html>

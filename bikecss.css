@@ -20,7 +20,6 @@
 	width:auto; 
 	float:right; 
 	cursor:pointer;
-	position: relative;
     display: inline-block;
 }
 #date{

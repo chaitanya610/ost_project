@@ -6,30 +6,30 @@
 	if($link == false){ 
 		die("ERROR: Could not connect. " . mysqli_connect_error());
 	}
-	if(isset($_COOKIE['bikeid']) && !empty($_COOKIE['bikeid'])){
-	    $_SESSION['bike']=$_COOKIE['bikeid'];
+	if(isset($_COOKIE['carid']) && !empty($_COOKIE['carid'])){
+	    $_SESSION['car']=$_COOKIE['carid'];
 		?>
-		<script>document.cookie = "bikeid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; </script>
+		<script>document.cookie = "carid=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/ost_project/";</script>
 		<?php
-		 header("Location:bikebooking.php");
+		 header("Location:carbooking.php");
 		 exit();
 	}
 	if(isset($_GET['availability']))
 	{
-	$bikes = array();
+	$cars = array();
 		$from = $_GET['from'];
 		$to = $_GET['to'];
 		$pickup = $_GET['pickup'];
 		$_SESSION['from']=$_GET['from'];
 		$_SESSION['to']=$_GET['to'];
 		$_SESSION['pickup']=$_GET['pickup'];
-		$stmt = $link->prepare("select bikeid from bikebookings where str_to_date( ?, '%Y-%m-%d') <= end and  str_to_date( ?, '%Y-%m-%d') >= start");
+		$stmt = $link->prepare("select carid from carbookings where str_to_date( ?, '%Y-%m-%d') <= end and  str_to_date( ?, '%Y-%m-%d') >= start");
 		$stmt->bind_param('ss',$from, $to);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		$index = 0;	
 		while($row = $result->fetch_array(MYSQLI_ASSOC)){
-			$bikes[$index] = $row['bid'];
+			$cars[$index] = $row['bid'];
 			$index++;
 		 }
 	}
@@ -45,7 +45,7 @@
 			$_SESSION['loggedin'] = true;
 			$_SESSION['email']=$email;
 			$_SESSION['username']=$row['username'];
-			header("Location:bike.php");
+			header("Location:car.php");
 			exit();
 		}
 		else{
@@ -65,7 +65,7 @@
 			$_SESSION['loggedin'] = true;
 			$_SESSION['username']=$username;
 			$_SESSION['email']=$email;
-			header("Location:bike.php");
+			header("Location:car.php");
 			exit();
 		}
 		else{
@@ -76,7 +76,7 @@
 ?>
 <html>
 <head>
-<title>Bikes</title>
+<title>cars</title>
 <link rel="stylesheet" type="text/css" href="mystyle.css">
 <link rel="stylesheet" type="text/css" href="bikecss.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -181,7 +181,7 @@ $(document).ready(function() {
    });
   } );
   </script>
- <form method="get" action="bike.php">
+ <form method="get" action="car.php">
  <div id="date" class="bikebgimage">
  <div id = "from-date">
   <p class="myfont">From:&nbsp;<input type="text" id="from" name="from" class="datepicker" <?php if(isset($_SESSION['from'])){ ?> value=<?php echo $_SESSION['from']; }?>></p>
@@ -197,12 +197,12 @@ $(document).ready(function() {
  </form>
 <script>
  $(document).on("click",".available", function(){
-	document.cookie = "bikeid = " + $(this).attr('id');
-	window.location.href = "bike.php";
+	document.cookie = "carid = " + $(this).attr('id');
+	window.location.href = "car.php";
  });
 </script>
  <div id="economy">
- <h1>Economy Bikes</h1>
+ <h1>Economy Cars</h1>
  <br>
   <?php
 		$link = mysqli_connect("localhost", "root", "root", "rental");
@@ -210,7 +210,7 @@ $(document).ready(function() {
 		if($link == false){ 
 			die("ERROR: Could not connect. " . mysqli_connect_error());
 			}
-		$result = mysqli_query($link,"select * from bikes where type = 0 order by price;"); 
+		$result = mysqli_query($link,"select * from cars where type = 0 order by price;"); 
 		while($row = mysqli_fetch_array($result)){
         ?>
 		<script>
@@ -237,7 +237,7 @@ $(document).ready(function() {
  <div id="gap" class="bikebgimage">
  </div>
  <div id="premium">
- <h1>Premium Bikes</h1>
+ <h1>Premium Cars</h1>
  <br>
  <?php
 		$link = mysqli_connect("localhost", "root", "root", "rental");
@@ -245,7 +245,7 @@ $(document).ready(function() {
 		if($link == false){ 
 			die("ERROR: Could not connect. " . mysqli_connect_error());
 			}
-		$result = mysqli_query($link,"select * from bikes where type = 1 order by price;"); 
+		$result = mysqli_query($link,"select * from cars where type = 1 order by price;"); 
 		while($row = mysqli_fetch_array($result)){
         ?>
 		<script>
@@ -305,7 +305,7 @@ $(document).ready(function() {
       <img src="img/signupavatar.png" alt="Avatar" class="avatar">
     </div>
     <div class="formcontainer">
-	<form action="bike.php" method="post">
+	<form action="car.php" method="post">
       <input type="text" placeholder="Username" name="username" required style="width: 600px;">
 		<br></br>
 	  <input type="text" placeholder="Email ID" name="mail" required style="width: 600px;">

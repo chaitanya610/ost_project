@@ -1,10 +1,15 @@
 <?php
   session_start();
-  session_destroy();
-  if(isset($_SERVER['HTTP_REFERER'])) {
- header('Location: '.$_SERVER['HTTP_REFERER']);  
-} else {
- header('Location: home.php');  
+  if($_SESSION['logout']) {
+	session_destroy();
+	header('Location: '.$_SERVER['HTTP_REFERER']);  
+} else if(isset($_SESSION['admin'])){
+	session_destroy();
+    header('Location: adminlogin.php');  
+}
+else {
+	session_destroy();
+    header('Location: home.php');  
 }
 exit;
 ?>
